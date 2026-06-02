@@ -1,0 +1,96 @@
+{
+  "data": [
+    {
+      "from": "2024-01-20T12:00Z",
+      "to": "2024-01-20T12:30Z",
+      "regions": [
+        {
+          "regionid": 1,
+          "dnoregion": "Scottish Hydro Electric Power Distribution",
+          "shortname": "North Scotland",
+          "intensity": {
+            "forecast": 48,
+            "index": "low"
+          },
+          "generationmix": [
+            {"fuel": "biomass", "perc": 0},
+            {"fuel": "coal", "perc": 0},
+            {"fuel": "imports", "perc": 0},
+            {"fuel": "gas", "perc": 2.0},
+            {"fuel": "nuclear", "perc": 0},
+            {"fuel": "other", "perc": 0},
+            {"fuel": "hydro", "perc": 10.0},
+            {"fuel": "solar", "perc": 0},
+            {"fuel": "wind", "perc": 88.0}
+          ]
+        },
+        {
+          "regionid": 13,
+          "dnoregion": "UK Power Networks London",
+          "shortname": "London",
+          "intensity": {
+            "forecast": 231,
+            "index": "high"
+          },
+          "generationmix": [
+            {"fuel": "biomass", "perc": 1.0},
+            {"fuel": "coal", "perc": 0},
+            {"fuel": "imports", "perc": 38.0},
+            {"fuel": "gas", "perc": 53.0},
+            {"fuel": "nuclear", "perc": 0},
+            {"fuel": "other", "perc": 0},
+            {"fuel": "hydro", "perc": 0},
+            {"fuel": "solar", "perc": 1.0},
+            {"fuel": "wind", "perc": 7.0}
+          ]
+        }
+      ]
+    },
+    {
+      "from": "2024-01-20T12:30Z",
+      "to": "2024-01-20T13:00Z",
+      "regions": [
+        {
+          "regionid": 1,
+          "dnoregion": "Scottish Hydro Electric Power Distribution",
+          "shortname": "North Scotland",
+          "intensity": {
+            "forecast": 45,
+            "index": "low"
+          },
+          "generationmix": [
+            {"fuel": "biomass", "perc": 0},
+            {"fuel": "coal", "perc": 0},
+            {"fuel": "imports", "perc": 0},
+            {"fuel": "gas", "perc": 1.8},
+            {"fuel": "nuclear", "perc": 0},
+            {"fuel": "other", "perc": 0},
+            {"fuel": "hydro", "perc": 9.2},
+            {"fuel": "solar", "perc": 0},
+            {"fuel": "wind", "perc": 89.0}
+          ]
+        },
+        {
+          "regionid": 13,
+          "dnoregion": "UK Power Networks London",
+          "shortname": "London",
+          "intensity": {
+            "forecast": 228,
+            "index": "high"
+          },
+          "generationmix": [
+            {"fuel": "biomass", "perc": 1.0},
+            {"fuel": "coal", "perc": 0},
+            {"fuel": "imports", "perc": 37.0},
+            {"fuel": "gas", "perc": 54.0},
+            {"fuel": "nuclear", "perc": 0},
+            {"fuel": "other", "perc": 0},
+            {"fuel": "hydro", "perc": 0},
+            {"fuel": "solar", "perc": 1.0},
+            {"fuel": "wind", "perc": 7.0}
+          ]
+        }
+      ]
+    }
+  ]
+}

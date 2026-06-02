@@ -1,0 +1,6 @@
+# carbon-aware-ai runtime + dev dependencies
+requests>=2.31
+pandas>=2.0
+pyarrow>=14.0        # Parquet engine for pandas
+matplotlib>=3.7      # analysis figures
+pytest>=7.4

@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "from": "2024-01-20T12:00Z",
+      "to": "2024-01-20T12:30Z",
+      "intensity": {
+        "forecast": 266,
+        "actual": 263,
+        "index": "moderate"
+      }
+    },
+    {
+      "from": "2024-01-20T12:30Z",
+      "to": "2024-01-20T13:00Z",
+      "intensity": {
+        "forecast": 272,
+        "actual": 268,
+        "index": "moderate"
+      }
+    },
+    {
+      "from": "2024-01-20T13:00Z",
+      "to": "2024-01-20T13:30Z",
+      "intensity": {
+        "forecast": 255,
+        "actual": null,
+        "index": "moderate"
+      }
+    }
+  ]
+}

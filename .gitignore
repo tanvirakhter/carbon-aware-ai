@@ -1,0 +1,71 @@
+# --------------------------------------------------------------------------- #
+# Python build / cache artifacts (regenerable)
+# --------------------------------------------------------------------------- #
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+
+# --------------------------------------------------------------------------- #
+# Virtual environments (machine-specific; recreate from requirements.txt)
+# --------------------------------------------------------------------------- #
+.venv/
+venv/
+env/
+
+# --------------------------------------------------------------------------- #
+# OS / editor / IDE
+# --------------------------------------------------------------------------- #
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# --------------------------------------------------------------------------- #
+# Logs / scratch
+# --------------------------------------------------------------------------- #
+*.log
+*.tmp
+*.bak
+*.orig
+
+# --------------------------------------------------------------------------- #
+# Local working drafts (kept in the working tree, never committed)
+# --------------------------------------------------------------------------- #
+results_section_draft.md
+
+# --------------------------------------------------------------------------- #
+# Derived analysis outputs (regenerate with: python3 scripts/run_temporal.py)
+# --------------------------------------------------------------------------- #
+outputs/
+
+# --------------------------------------------------------------------------- #
+# Collected / processed data
+# --------------------------------------------------------------------------- #
+# Keep the LIVE, growing data out of git, but preserve the directory structure
+# via .gitkeep. We use the "ignore contents (dir/*) then un-ignore .gitkeep"
+# form on purpose: ignoring the directory itself (dir/ or dir/**) would stop
+# git descending into it and silently make the !.gitkeep negation a no-op.
+#
+#   - data/raw/national/   : re-pullable from the API
+#   - data/processed/      : regenerable via scripts/run_etl.py
+#   - data/raw/regional_fw48h/ : FORECAST-ONLY point-in-time captures - NOT
+#     regenerable. The bulk is ignored here; a small representative sample is
+#     committed under data/sample/ (which is NOT ignored - see below).
+#
+# Note: we ignore the *contents* (data/raw/*), not the directory itself, and
+# re-include only .gitkeep. The collector recreates the national/ and
+# regional_fw48h/ subdirectories on demand, so they are not tracked.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# data/sample/ is deliberately tracked (committed reproducibility sample) and
+# is intentionally NOT listed above.
