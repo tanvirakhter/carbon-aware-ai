@@ -56,6 +56,14 @@ HALF_HOUR = pd.Timedelta(minutes=30)
 HALF_HOUR_NP = np.timedelta64(30, "m")
 DEFAULT_WINDOWS = (6, 12, 24)
 
+# Worked-example arrival used for Fig. 4 (the representative day in the write-up):
+# a 24h-window early-morning arrival sitting at the daily high-carbon level. We
+# pin it so the figure is reproducible run-to-run rather than tracking whichever
+# arrival happens to have the largest oracle saving in a given pull; if the
+# timestamp is absent (e.g. a different date range) the analysis falls back to
+# the max-oracle-saving arrival automatically.
+WORKED_EXAMPLE_ARRIVAL = "2026-05-18 04:30"
+
 # Canonical period-start column used throughout the module. The processed ETL
 # output uses "from"; the spec/paper vocabulary is "period_start". load_national
 # normalises any of these to PERIOD_COL.
@@ -66,21 +74,22 @@ _PERIOD_ALIASES = ("period_start", "from", "period", "datetime", "timestamp")
 # --------------------------------------------------------------------------- #
 # Workload presets
 # --------------------------------------------------------------------------- #
-# TODO: replace these PLACEHOLDER energy figures with cited, published per-task
-# energy numbers (NOT measured by this module). The percentage / capture metrics
-# are independent of these values; only the absolute gCO2 figures depend on them.
+# Per-query energy cases used ONLY to scale the percentage / capture results
+# into absolute gCO2 for illustration. These are cited, published per-query
+# figures (NOT measured by this module); the percentage and capture metrics are
+# independent of them, so they affect only the absolute gCO2 numbers.
 WORKLOADS: dict[str, dict] = {
-    "inference_batch_1M_queries": {
-        "energy_kwh": 300.0,  # TODO: cite published per-query energy x 1e6
-        "note": "A 1M-query LLM inference batch. PLACEHOLDER energy.",
+    "optimised_frontier_query": {
+        "energy_kwh": 0.34e-3,  # 0.34 Wh - optimised frontier-scale inference (Oviedo et al.)
+        "note": "Single optimised frontier-scale inference query (0.34 Wh).",
     },
-    "fine_tuning_run": {
-        "energy_kwh": 50.0,  # TODO: cite
-        "note": "One modest fine-tuning run. PLACEHOLDER energy.",
+    "short_query": {
+        "energy_kwh": 0.43e-3,  # 0.43 Wh - short query (Jegham et al.)
+        "note": "Single short inference query (0.43 Wh).",
     },
-    "training_run": {
-        "energy_kwh": 1000.0,  # TODO: cite
-        "note": "One large training run. PLACEHOLDER energy.",
+    "long_reasoning_query": {
+        "energy_kwh": 4.3e-3,  # ~4.3 Wh - long / reasoning query (Oviedo et al.)
+        "note": "Single long / reasoning inference query (~4.3 Wh).",
     },
 }
 
@@ -489,9 +498,15 @@ def _figures_dir() -> Path:
     return d
 
 
-def make_figures(results: TemporalResults, out_dir: Optional[Path] = None) -> list[Path]:
+def make_figures(
+    results: TemporalResults,
+    out_dir: Optional[Path] = None,
+    worked_example_arrival: Optional[pd.Timestamp | str] = WORKED_EXAMPLE_ARRIVAL,
+) -> list[Path]:
     """Write the four analysis figures. Returns the paths written.
 
+    ``worked_example_arrival`` pins Fig. 4 to a specific decision point for a
+    reproducible figure; pass ``None`` to let it pick the max-oracle-saving day.
     Uses the non-interactive Agg backend so it runs headless.
     """
     import matplotlib
@@ -547,20 +562,38 @@ def make_figures(results: TemporalResults, out_dir: Optional[Path] = None) -> li
     fig.tight_layout(); fig.savefig(p, dpi=120); plt.close(fig); written.append(p)
 
     # (4) worked-example day: actual vs forecast curves + policy slots
-    p4 = _worked_example_figure(results, out_dir, plt)
+    p4 = _worked_example_figure(results, out_dir, plt, worked_example_arrival)
     if p4 is not None:
         written.append(p4)
     return written
 
 
-def _worked_example_figure(results, out_dir, plt):
-    """One arrival's window: actual & forecast curves, baseline/oracle/scheduler."""
+def _worked_example_figure(results, out_dir, plt, arrival=None):
+    """One arrival's window: actual & forecast curves, baseline/oracle/scheduler.
+
+    ``arrival`` pins the example to a specific decision point; when it is None or
+    not a valid decision point in this dataset we fall back to the arrival with
+    the largest oracle saving (the most illustrative day available).
+    """
     w = max(w for w in results.windows if results.windows[w]["n_jobs"] > 0)
     arr = results.arrivals[w]
     if arr.empty:
         return None
-    # Pick an arrival with a meaningful oracle saving so the example is illustrative.
-    pick_row = arr.loc[arr["oracle_saving"].idxmax()]
+    pick_row = None
+    if arrival is not None:
+        t = pd.Timestamp(arrival)
+        t = t.tz_localize("UTC") if t.tzinfo is None else t.tz_convert("UTC")
+        match = arr[arr["arrival"] == t]
+        if not match.empty:
+            pick_row = match.iloc[0]
+        else:
+            logger.warning(
+                "worked-example arrival %s is not a valid %dh decision point; "
+                "falling back to the max-oracle-saving arrival.", t, w,
+            )
+    if pick_row is None:
+        # Pick an arrival with a meaningful oracle saving so the example is illustrative.
+        pick_row = arr.loc[arr["oracle_saving"].idxmax()]
     return _plot_worked_example(results, w, pick_row, out_dir, plt)
 
 

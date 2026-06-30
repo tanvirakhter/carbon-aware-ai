@@ -42,8 +42,8 @@ def main() -> int:
         print(f"\nWeekday/weekend mean saving % ({headline_w}h window):")
         print(s["by_weekend"].to_string(index=False))
 
-    # Absolute gCO2 avoided per workload (PLACEHOLDER energies - see TODO).
-    print("\nAbsolute gCO2 avoided by the scheduler (PLACEHOLDER workload energies):")
+    # Absolute gCO2 avoided per workload, using cited per-query energy cases.
+    print("\nAbsolute gCO2 avoided by the scheduler (cited per-query energies):")
     arr = results.arrivals[headline_w]
     if not arr.empty:
         for name, spec in temporal.WORKLOADS.items():
