@@ -153,9 +153,11 @@ python3 scripts/run_temporal.py   # writes outputs/figures/fig1..fig4 .png
 ```
 
 They are: (1) capture-ratio vs window, (2) scheduler-saving distribution,
-(3) saving by hour-of-day, and (4) a worked-example day. The percentage and
-capture metrics are independent of workload energy; the per-query energy values
-in `temporal.py` only scale the optional absolute-gCO2 figures.
+(3) saving by hour-of-day, and (4) a worked-example day. Headline results are
+ratios and are independent of workload energy; the per-query energy values in
+`temporal.py` (0.34 Wh, 0.43 Wh, and ~4.3 Wh) are illustrative constants drawn
+from the cited inference-energy literature, used only to scale the optional
+absolute-gCO2 figures.
 
 Fresh clone with no data? The national series carries actuals and is re-pullable
 from the public NESO API, so backfill it and run the analysis:
@@ -165,6 +167,10 @@ python3 scripts/backfill_national.py --days 30   # or --from/--to a UTC range
 python3 scripts/run_etl.py
 python3 scripts/run_temporal.py
 ```
+
+The figures use the national series over the 20-day window **12 May - 1 June
+2026 (UTC)**; reproduce exactly that range with
+`python3 scripts/backfill_national.py --from 2026-05-12 --to 2026-06-01`.
 
 ### Spatial (scaffolded - TODOs)
 
