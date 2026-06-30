@@ -74,10 +74,8 @@ _PERIOD_ALIASES = ("period_start", "from", "period", "datetime", "timestamp")
 # --------------------------------------------------------------------------- #
 # Workload presets
 # --------------------------------------------------------------------------- #
-# Per-query energy cases used ONLY to scale the percentage / capture results
-# into absolute gCO2 for illustration. These are cited, published per-query
-# figures (NOT measured by this module); the percentage and capture metrics are
-# independent of them, so they affect only the absolute gCO2 numbers.
+# Illustrative per-query energy (Wh) from cited literature; headline metrics are
+# ratios, independent of E. Values affect only the absolute gCO2 numbers below.
 WORKLOADS: dict[str, dict] = {
     "optimised_frontier_query": {
         "energy_kwh": 0.34e-3,  # 0.34 Wh - optimised frontier-scale inference (Oviedo et al.)

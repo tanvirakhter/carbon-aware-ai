@@ -153,11 +153,10 @@ python3 scripts/run_temporal.py   # writes outputs/figures/fig1..fig4 .png
 ```
 
 They are: (1) capture-ratio vs window, (2) scheduler-saving distribution,
-(3) saving by hour-of-day, and (4) a worked-example day. Headline results are
-ratios and are independent of workload energy; the per-query energy values in
-`temporal.py` (0.34 Wh, 0.43 Wh, and ~4.3 Wh) are illustrative constants drawn
-from the cited inference-energy literature, used only to scale the optional
-absolute-gCO2 figures.
+(3) saving by hour-of-day, and (4) a worked-example day. Per-query energy
+values (0.34 Wh, 0.43 Wh, 4.3 Wh) are illustrative constants drawn from the
+cited literature; all headline results are ratios and are independent of this
+value, which affects only absolute gCO2 figures.
 
 Fresh clone with no data? The national series carries actuals and is re-pullable
 from the public NESO API, so backfill it and run the analysis:
