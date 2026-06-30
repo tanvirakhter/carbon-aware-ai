@@ -56,8 +56,7 @@ outputs/
 #   - data/raw/national/   : re-pullable from the API
 #   - data/processed/      : regenerable via scripts/run_etl.py
 #   - data/raw/regional_fw48h/ : FORECAST-ONLY point-in-time captures - NOT
-#     regenerable. The bulk is ignored here; a small representative sample is
-#     committed under data/sample/ (which is NOT ignored - see below).
+#     regenerable. Keep all collected data out of git and back it up separately.
 #
 # Note: we ignore the *contents* (data/raw/*), not the directory itself, and
 # re-include only .gitkeep. The collector recreates the national/ and
@@ -67,5 +66,5 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
-# data/sample/ is deliberately tracked (committed reproducibility sample) and
-# is intentionally NOT listed above.
+# No study data is committed - any local reproducibility sample stays out of git.
+data/sample/

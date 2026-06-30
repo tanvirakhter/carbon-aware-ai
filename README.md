@@ -53,10 +53,9 @@ carbon-aware-ai/
 |   +-- diagnose_national.py  # sanity-check national history coverage/gaps
 |   +-- run_temporal.py       # run temporal analysis; print metrics; write figures
 +-- tests/                 # offline pytest suite + mock JSON fixtures
-+-- data/
++-- data/                  # all collected/derived data is git-ignored
 |   +-- raw/               # timestamped Parquet snapshots accumulate here (git-ignored)
 |   +-- processed/         # tidy, de-duplicated half-hourly tables (git-ignored)
-|   +-- sample/            # small committed sample for reproducibility
 +-- docs/                  # METHODOLOGY.md, temporal_module_spec.md
 +-- requirements.txt
 +-- ATTRIBUTION.md
@@ -158,13 +157,13 @@ They are: (1) capture-ratio vs window, (2) scheduler-saving distribution,
 capture metrics are independent of workload energy; the per-query energy values
 in `temporal.py` only scale the optional absolute-gCO2 figures.
 
-No collected data on a fresh clone? Seed the pipeline from the committed sample
-(see [`data/sample/README.md`](data/sample/README.md)):
+Fresh clone with no data? The national series carries actuals and is re-pullable
+from the public NESO API, so backfill it and run the analysis:
 
 ```bash
-mkdir -p data/raw/regional_fw48h
-cp data/sample/regional_fw48h/*.parquet data/raw/regional_fw48h/
+python3 scripts/backfill_national.py --days 30   # or --from/--to a UTC range
 python3 scripts/run_etl.py
+python3 scripts/run_temporal.py
 ```
 
 ### Spatial (scaffolded - TODOs)
