@@ -49,7 +49,7 @@ table exists later, swap it in. For now, note the limitation in the docstring.
 1. `baseline_gco2`, `oracle_gco2`, `scheduler_gco2` (totals and per-job mean).
 2. `oracle_saving_pct` = (baseline - oracle) / baseline * 100  - the theoretical max.
 3. `scheduler_saving_pct` = (baseline - scheduler) / baseline * 100  - realised.
-4. `capture_ratio` = scheduler_saving / oracle_saving  - **the headline number**:
+4. `capture_ratio` = scheduler_saving / oracle_saving  - **the primary metric**:
    what fraction of achievable saving the forecast-driven rule captures.
 5. Distributions (not just means): report median, IQR, and 10th/90th percentiles
    across decision points. Means alone hide the variance that makes this interesting.
