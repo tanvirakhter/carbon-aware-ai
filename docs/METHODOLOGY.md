@@ -47,7 +47,7 @@ Run on the **regional forecast** series.
 
 ## What this buys us
 
-- One rigorous, defensible headline result (temporal, on actuals).
+- One rigorous, defensible quantitative claim (temporal, on actuals).
 - One strong descriptive figure (spatial map of forecast variation).
 - The limitation becomes a single honest sentence in Methods that *strengthens*
   credibility rather than a hole a reviewer finds later.

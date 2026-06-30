@@ -10,11 +10,12 @@ actual carbon intensity) and *what was knowable in advance* (regional 48-hour
 from shifting a workload in **time**, in **space (region)**, and from a
 realistic **forecast-driven scheduler** versus a perfect-hindsight oracle.
 
-**Headline result.** On the GB national series, a forecast-driven scheduler
-captures **84-91% of the achievable (oracle) carbon saving** across flexibility
-windows of 6, 12, and 24 hours (capture rises with window length). See
-[`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) for the method; regenerate the
-figures with the command below.
+**What it measures.** On the GB national series, the analysis quantifies how much
+of the achievable (perfect-hindsight oracle) carbon saving a realistic
+forecast-driven scheduler captures across flexibility windows of 6, 12, and 24
+hours. See [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) for the method. Numerical
+results are reported in the accompanying paper; regenerate the figures locally
+with the command below.
 
 > Carbon Intensity data provided by the National Energy System Operator (NESO),
 > licensed under CC BY 4.0. See [ATTRIBUTION.md](ATTRIBUTION.md). **Always
@@ -153,8 +154,9 @@ python3 scripts/run_temporal.py   # writes outputs/figures/fig1..fig4 .png
 ```
 
 They are: (1) capture-ratio vs window, (2) scheduler-saving distribution,
-(3) saving by hour-of-day, and (4) a worked-example day. Workload energy values
-are **placeholders** - see the TODO in `temporal.py` / [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md).
+(3) saving by hour-of-day, and (4) a worked-example day. The percentage and
+capture metrics are independent of workload energy; the per-query energy values
+in `temporal.py` only scale the optional absolute-gCO2 figures.
 
 No collected data on a fresh clone? Seed the pipeline from the committed sample
 (see [`data/sample/README.md`](data/sample/README.md)):
